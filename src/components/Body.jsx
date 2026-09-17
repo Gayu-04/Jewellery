@@ -1,3 +1,4 @@
+
 import JewelCard from "./JewelCard";
 import Shimmer from "./Shimmer";
 import { useState, useEffect } from "react";
@@ -8,10 +9,10 @@ const Body = () => {
   const [allJewels, setAllJewels] = useState([]);
   const [searchText, setSearchText] = useState("");
 
-  useEffect(() => {   
-    fetchData(); 
+  useEffect(() => {
+    fetchData();
   }, []);
- 
+
   const fetchData = async () => {
     const data = await fetch("https://bytefork.tools/m/msxch8ah");
 
@@ -23,7 +24,7 @@ const Body = () => {
 
   const filterJewels = (sectionName) => {
     const filteredList = allJewels.filter(
-      (jewel) => jewel.section === sectionName,
+      (jewel) => jewel.section === sectionName
     );
 
     setListOfJewels(filteredList);
@@ -37,7 +38,7 @@ const Body = () => {
 
   const searchJewels = () => {
     const filteredJewels = allJewels.filter((jewel) =>
-      jewel.title.toLowerCase().includes(searchText.toLowerCase()),
+      jewel.title.toLowerCase().includes(searchText.toLowerCase())
     );
 
     setListOfJewels(filteredJewels);
@@ -48,33 +49,47 @@ const Body = () => {
   }
 
   return (
-    <div className="body">
-      <h1>Saaz Jewellery</h1>
+    <div className="min-h-screen bg-[#fffaf0] px-6 py-8">
 
-      <div className="filter">
+      {/* Heading */}
+      <h1 className="mb-8 text-center text-4xl font-bold text-yellow-700">
+        Saaz Jewellery
+      </h1>
+
+      {/* Filter Section */}
+      <div className="mb-10 flex flex-wrap items-center justify-center gap-3">
+
         {/* Search */}
-        <div className="search">
+        <div className="flex">
           <input
             type="text"
-            className="search-box"
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
             placeholder="Search jewellery..."
+            className="w-64 rounded-l-lg border border-gray-300 bg-white px-4 py-2 outline-none focus:border-yellow-600 focus:ring-1 focus:ring-yellow-600"
           />
 
-          <button onClick={searchJewels}>Search</button>
+          <button
+            onClick={searchJewels}
+            className="rounded-r-lg bg-yellow-600 px-5 py-2 font-medium text-white transition hover:bg-yellow-700"
+          >
+            Search
+          </button>
         </div>
 
         {/* All */}
-        <button className="btn-filter" onClick={showAll}>
+        <button
+          className="rounded-lg border border-yellow-600 bg-white px-4 py-2 font-medium text-yellow-700 transition hover:bg-yellow-600 hover:text-white"
+          onClick={showAll}
+        >
           All
         </button>
 
         {/* Bestseller */}
         <button
-          className="btn-filter"
+          className="rounded-lg border border-yellow-600 bg-white px-4 py-2 font-medium text-yellow-700 transition hover:bg-yellow-600 hover:text-white"
           onClick={() => filterJewels("BestSellers")}
         >
           Bestseller
@@ -82,31 +97,39 @@ const Body = () => {
 
         {/* New Arrival */}
         <button
-          className="btn-filter"
+          className="rounded-lg border border-yellow-600 bg-white px-4 py-2 font-medium text-yellow-700 transition hover:bg-yellow-600 hover:text-white"
           onClick={() => filterJewels("NewArrival")}
         >
           New Arrival
         </button>
 
         {/* Sapphire */}
-        <button className="btn-filter" onClick={() => filterJewels("Sapphire")}>
+        <button
+          className="rounded-lg border border-yellow-600 bg-white px-4 py-2 font-medium text-yellow-700 transition hover:bg-yellow-600 hover:text-white"
+          onClick={() => filterJewels("Sapphire")}
+        >
           Sapphire Collection
         </button>
 
         {/* Gold */}
-        <button className="btn-filter" onClick={() => filterJewels("Gold")}>
+        <button
+          className="rounded-lg border border-yellow-600 bg-white px-4 py-2 font-medium text-yellow-700 transition hover:bg-yellow-600 hover:text-white"
+          onClick={() => filterJewels("Gold")}
+        >
           Gold Collection
         </button>
       </div>
 
-      <div className="container">
+      {/* Jewellery Cards */}
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {ListOfJewels.map((jewel) => (
-          <Link 
-          key={jewel.id} 
-          to= {"/Product/" + jewel.id}
+          <Link
+            key={jewel.id}
+            to={"/product/" + jewel.id}
+            className="transition-transform duration-200 hover:scale-[1.02]"
           >
-          < JewelCard  jewelData={jewel} />
-          </Link> 
+            <JewelCard jewelData={jewel} />
+          </Link>
         ))}
       </div>
     </div>
@@ -114,3 +137,5 @@ const Body = () => {
 };
 
 export default Body;
+
+  
