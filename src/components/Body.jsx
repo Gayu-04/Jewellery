@@ -18,7 +18,7 @@ const Body = () => {
 
     const json = await data.json();
 
-    setListOfJewels(json);
+    setListOfJewels(json); 
     setAllJewels(json);
   };
 

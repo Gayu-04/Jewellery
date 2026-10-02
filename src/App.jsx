@@ -7,6 +7,8 @@ import Home from "./Home";
 import Product from "./components/Product";
 import { useState, useEffect} from "react";
 import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
 
 function App() {
   const [userName, setUserName] = useState();
@@ -18,7 +20,9 @@ function App() {
     setUserName(data.name);
   }, []);
   return (
+
     // data is coming from value 
+    <Provider store={appStore}>
     <UserContext.Provider value={{ loggedInUser: userName }}>
     <BrowserRouter>
       <Header />
@@ -33,6 +37,7 @@ function App() {
       </Routes>
     </BrowserRouter>
     </UserContext.Provider>
+    </Provider>
   );
 }
 

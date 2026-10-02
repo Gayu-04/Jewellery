@@ -2,6 +2,8 @@
 import { useParams } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import useProductInfo from "../utils/useProductInfo";
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice";
 
 const Product = () => {
   const { id } = useParams();
@@ -11,6 +13,13 @@ const Product = () => {
   if (prodInfo === null) {
     return <Shimmer />;
   }
+ 
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    dispatch(addItem(prodInfo));
+    //this wil go to cartSlice addItem reducer
+  };
 
   return (
     <div className="bg-[#fffaf0] min-h-screen p-10">
@@ -41,7 +50,10 @@ const Product = () => {
             Price: ₹{prodInfo.price}
           </h3>
 
-          <button className="bg-yellow-600 text-white px-6 py-3 rounded-lg">
+          <button className="bg-yellow-600 text-white px-6 py-3 rounded-lg"
+          onClick={() => handleAddToCart(prodInfo)}
+      >
+
             Add to Cart
           </button>
 

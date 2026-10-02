@@ -1,8 +1,12 @@
 
-import Profile from "../assets/profile.jpg";
+import logoimg from "../assets/logosaaz.jpg";
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../utils/UserContext";
 import { Link } from "react-router-dom";
+import Profile from "../assets/profile.png";
+import Cartimg from "../assets/shoppingcart.png";
+import { useSelector } from "react-redux"; 
+
 
 const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
@@ -12,6 +16,11 @@ const Header = () => {
   useEffect(() => {
     console.log("UseEffect called");
   }, [btnNameReact]);
+   
+
+  //selector- is hook in react
+  const cart= useSelector((store) => store.cart.items);
+
 
   return (
     <header className="flex items-center justify-between px-8 py-3 bg-white shadow-md">
@@ -20,8 +29,8 @@ const Header = () => {
       <div className="logo-container">
         <img
           className="w-16 h-16 rounded-full object-cover border-2 border-yellow-600"
-          src={Profile}
-          alt="Profile"
+          src={logoimg}
+          alt="Logo"
         />
       </div>
 
@@ -43,16 +52,28 @@ const Header = () => {
               to="/profile"
               className="text-gray-700 font-medium hover:text-yellow-600 transition duration-200"
             >
-              Profile
+              <img
+                className="w-10 h-10 rounded-full object-cover border-2 border-yellow-600"
+                src={Profile}
+                alt="Profile"
+              />
             </Link>
           </li>
 
           <li>
             <Link
               to="/cart"
-              className="text-gray-700 font-medium hover:text-yellow-600 transition duration-200"
-            >
-              Cart
+              className="relative inline-block"
+              >
+              <img
+                className="w-10 h-10 rounded-full object-cover border-2 border-yellow-600"
+                src={Cartimg}
+                alt="Cart" 
+                
+              />
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+              {cart.length}
+               </span>
             </Link>
           </li>
 
